@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Memaksa Laravel memproduksi link HTTPS apabila diakses lewat sambungan Ngrok
-        if (str_contains(request()->getHost(), 'ngrok')) {
+        // Paksa semua URL dan Form Action menggunakan HTTPS di production / Vercel
+        if (app()->environment('production') || env('APP_ENV') === 'production') {
             URL::forceScheme('https');
         }
     }
