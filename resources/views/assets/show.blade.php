@@ -106,7 +106,7 @@
                             
                             @if($report->evidence_photo)
                                 <div class="w-full h-32 sm:h-40 rounded-xl overflow-hidden mb-4 border border-slate-200">
-                                    <img src="{{ asset('storage/' . $report->evidence_photo) }}" alt="Bukti" class="w-full h-full object-cover">
+                                    <img src="{{ $report->evidence_photo }}" alt="Bukti" class="w-full h-full object-cover">
                                 </div>
                             @endif
 

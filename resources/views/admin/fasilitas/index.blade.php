@@ -48,8 +48,8 @@
                         </td>
                         <td class="p-4">
                             @if($report->evidence_photo)
-                                <a href="{{ asset('storage/' . $report->evidence_photo) }}" target="_blank" class="block w-20 h-20 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all shadow-sm">
-                                    <img src="{{ asset('storage/' . $report->evidence_photo) }}" class="w-full h-full object-cover">
+                                <a href="{{ $report->evidence_photo }}" target="_blank" class="block w-20 h-20 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all shadow-sm">
+                                    <img src="{{ $report->evidence_photo }}" class="w-full h-full object-cover">
                                 </a>
                             @else
                                 <span class="px-3 py-1 bg-slate-100 text-slate-400 text-xs rounded-lg font-medium border border-slate-200 border-dashed">Tanpa Bukti</span>

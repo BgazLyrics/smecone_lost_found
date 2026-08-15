@@ -63,8 +63,8 @@
             @if($report->evidence_photo)
             <div>
                 <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1.5">Foto Temuan</p>
-                <a href="{{ asset('storage/' . $report->evidence_photo) }}" target="_blank" class="block rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all cursor-zoom-in">
-                    <img src="{{ asset('storage/' . $report->evidence_photo) }}" alt="Bukti Laporan" class="w-full h-auto max-h-48 object-cover">
+                <a href="{{ $report->evidence_photo }}" target="_blank" class="block rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all cursor-zoom-in">
+                    <img src="{{ $report->evidence_photo }}" alt="Bukti Laporan" class="w-full h-auto max-h-48 object-cover">
                 </a>
             </div>
             @endif

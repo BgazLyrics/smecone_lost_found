@@ -53,8 +53,8 @@
                             </td>
                             <td class="p-4">
                                 @if($claim->proof_photo)
-                                    <a href="{{ asset('storage/' . $claim->proof_photo) }}" target="_blank" class="block w-16 h-16 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-emerald-500 shadow-sm transition-all">
-                                        <img src="{{ asset('storage/' . $claim->proof_photo) }}" class="w-full h-full object-cover">
+                                    <a href="{{ $claim->proof_photo }}" target="_blank" class="block w-16 h-16 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-emerald-500 shadow-sm transition-all">
+                                        <img src="{{ $claim->proof_photo }}" class="w-full h-full object-cover">
                                     </a>
                                 @else
                                     <span class="text-xs font-bold text-slate-400 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg border-dashed">Tanpa Foto</span>
@@ -134,8 +134,8 @@
                         </td>
                         <td class="p-4">
                             @if($item->photo)
-                                <a href="{{ asset('storage/' . $item->photo) }}" target="_blank" class="block w-20 h-20 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all shadow-sm">
-                                    <img src="{{ asset('storage/' . $item->photo) }}" class="w-full h-full object-cover">
+                                <a href="{{ $item->photo }}" target="_blank" class="block w-20 h-20 rounded-xl overflow-hidden border border-slate-200 hover:ring-2 ring-blue-500 transition-all shadow-sm">
+                                    <img src="{{ $item->photo }}" class="w-full h-full object-cover">
                                 </a>
                             @else
                                 <span class="px-3 py-1.5 bg-slate-100 text-slate-400 text-xs rounded-lg font-bold border border-slate-200 border-dashed">N/A Image</span>
