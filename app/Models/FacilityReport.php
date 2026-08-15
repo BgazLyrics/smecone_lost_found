@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityReport extends Model
 {
@@ -23,6 +25,28 @@ class FacilityReport extends Model
     protected $casts = [
         'is_public' => 'boolean',
     ];
+
+    /**
+     * Accessor otomatis untuk mengarahkan foto bukti ke Supabase Storage
+     */
+    protected function evidencePhoto(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (!$value) {
+                    return null;
+                }
+
+                // Jika sudah berupa URL utuh (https://...)
+                if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
+                    return $value;
+                }
+
+                // Arahkan ke URL Supabase S3 disk
+                return Storage::disk('s3')->url($value);
+            }
+        );
+    }
 
     public function user()
     {
