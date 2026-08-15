@@ -44,7 +44,7 @@ class LostFoundClaimController extends Controller
 
         $photoPath = null;
         if ($request->hasFile('proof_photo')) {
-            $photoPath = Storage::disk('public')->put('claims', $request->file('proof_photo'));
+            $photoPath = Storage::disk('s3')->putFile('claims', $request->file('proof_photo'));
         }
 
         LostFoundClaim::create([

@@ -58,7 +58,7 @@ class LostFoundController extends Controller
         // Upload file logika
         $photoPath = null;
         if ($request->hasFile('photo')) {
-            $photoPath = Storage::disk('public')->put('lost_found', $request->file('photo'));
+            $photoPath = Storage::disk('s3')->putFile('lost_found', $request->file('photo'));
         }
 
         // Mapping input item_name dan date ke dalam kolom yang tersedia di database (item_characteristics)
