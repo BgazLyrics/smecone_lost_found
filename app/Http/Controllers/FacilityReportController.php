@@ -68,7 +68,7 @@ class FacilityReportController extends Controller
         ]);
 
         // Simpan foto di /storage/app/public/facility_reports
-        $photoPath = $request->file('evidence_photo')->store('facility_reports', 'public');
+        $photoPath = $request->file('evidence_photo')->store('facility_reports', 's3');
 
         // Simpan ke database
         $report = FacilityReport::create([
