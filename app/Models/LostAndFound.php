@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class LostAndFound extends Model
 {
@@ -18,6 +20,28 @@ class LostAndFound extends Model
         'status', // 'Mencari', 'Diamankan Admin', 'Menunggu Verifikasi', 'Dikembalikan'
         'claimed_by',
     ];
+
+    /**
+     * Accessor otomatis untuk mengarahkan foto barang ke Supabase Storage
+     */
+    protected function photo(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                if (!$value) {
+                    return null;
+                }
+
+                // Jika sudah berupa URL utuh (https://...)
+                if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://')) {
+                    return $value;
+                }
+
+                // Arahkan ke URL Supabase S3 disk
+                return Storage::disk('s3')->url($value);
+            }
+        );
+    }
 
     public function reporter()
     {
@@ -69,14 +93,13 @@ class LostAndFound extends Model
         }
 
         $now = \Carbon\Carbon::now();
-        // Relokasi dihitung sejak barang ini disimpan (bisa juga sejak updated_at jika mau akurat saat diubah jadi Diamankan Admin, tapi created_at lebih absolut)
         $elapsedDays = $this->created_at->diffInDays($now);
         $maxDays = 30;
         $daysLeft = max(0, $maxDays - $elapsedDays);
         $isCritical = $daysLeft <= 5 && $daysLeft > 0;
         $isExpired = $daysLeft === 0;
 
-        $color = 'bg-blue-100 text-blue-700 ring-blue-300'; // Default Aman
+        $color = 'bg-blue-100 text-blue-700 ring-blue-300';
         if ($isExpired) {
             $color = 'bg-red-100 text-red-700 ring-red-300';
             $text = 'KADALUWARSA (Eksekusi Hari Ini)';
